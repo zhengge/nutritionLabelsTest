@@ -111,56 +111,100 @@
     
 %     LineWordParametersNum=1;
 %     while size(SingleWordParameters,1)>0
+        figure; imshow(testImageHough); hold on;
         LineWordParametersCnt=1;
         min_center_y = min(SingleWordParameters(:,6))
         for m=1:size(SingleWordParameters,1)
-            if (SingleWordParameters(m,6)-min_center_y)<=15
+            if (SingleWordParameters(m,6)-min_center_y)<=10
                 rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
                     SingleWordParameters(m,7),SingleWordParameters(m,8)],'EdgeColor','b');
-                LineWordParameters(LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
+                LineWordParameters(1,LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
                 LineWordParametersCnt=LineWordParametersCnt+1;
             end
         end
-        LineWordParametersCnt=1;
+%         LineWordParametersCnt=1;
         %删除已经定位的连通域
-        for n=1:size(LineWordParameters,1)
-            SingleWordParameters(LineWordParameters(n,9)-n+1,:)=[];
+        size(LineWordParameters,2)
+        for n=1:(LineWordParametersCnt-1)
+            if (LineWordParameters(1,n,9)-n+1)>=1
+                SingleWordParameters(LineWordParameters(1,n,9)-n+1,:)=[];
+            else%排在第一位时
+                SingleWordParameters(1,:)=[];
+            end
         end
 %         LineWordParametersNum=LineWordParametersNum+1;
 %     end
-
-figure; imshow(testImageHough); hold on;
-LineWordParametersCnt=1;
+    
+    figure; imshow(testImageHough); hold on;
+        LineWordParametersCnt=1;
         min_center_y = min(SingleWordParameters(:,6))
         for m=1:size(SingleWordParameters,1)
-            if (SingleWordParameters(m,6)-min_center_y)<=15
+            if (SingleWordParameters(m,6)-min_center_y)<=10
                 rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
                     SingleWordParameters(m,7),SingleWordParameters(m,8)],'EdgeColor','b');
-                aaa(LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
+                LineWordParameters(2,LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
                 LineWordParametersCnt=LineWordParametersCnt+1;
             end
         end
-        LineWordParametersCnt=1;
+        
+%         LineWordParametersCnt=1;
         %删除已经定位的连通域
-        for n=1:size(aaa,1)
-            SingleWordParameters(aaa(n,9)-n+1,:)=[];
+%         size(LineWordParameters,2)
+        for n=1:(LineWordParametersCnt-1)
+            if (LineWordParameters(2,n,9)-n+1)>=1
+                SingleWordParameters(LineWordParameters(2,n,9)-n+1,:)=[];
+            else%排在第一位时
+                SingleWordParameters(1,:)=[];
+            end
+        end
+    
+        figure; imshow(testImageHough); hold on;
+        LineWordParametersCnt=1;
+        min_center_y = min(SingleWordParameters(:,6))
+        for m=1:size(SingleWordParameters,1)
+            if (SingleWordParameters(m,6)-min_center_y)<=10
+                rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
+                    SingleWordParameters(m,7),SingleWordParameters(m,8)],'EdgeColor','b');
+                LineWordParameters(3,LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
+                LineWordParametersCnt=LineWordParametersCnt+1;
+            end
+        end
+        
+%         LineWordParametersCnt=1;
+        %删除已经定位的连通域
+%         size(LineWordParameters,2)
+        for n=1:(LineWordParametersCnt-1)
+            if (LineWordParameters(3,n,9)-n+1)>=1
+                SingleWordParameters(LineWordParameters(3,n,9)-n+1,:)=[];
+            else%排在第一位时
+                SingleWordParameters(1,:)=[];
+            end
+        end
+        
+                figure; imshow(testImageHough); hold on;
+        LineWordParametersCnt=1;
+        min_center_y = min(SingleWordParameters(:,6))
+        for m=1:size(SingleWordParameters,1)
+            if (SingleWordParameters(m,6)-min_center_y)<=10
+                rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
+                    SingleWordParameters(m,7),SingleWordParameters(m,8)],'EdgeColor','b');
+                LineWordParameters(4,LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
+                LineWordParametersCnt=LineWordParametersCnt+1;
+            end
+        end
+        
+%         LineWordParametersCnt=1;
+        %删除已经定位的连通域
+%         size(LineWordParameters,2)
+        for n=1:(LineWordParametersCnt-1)
+            if (LineWordParameters(4,n,9)-n+1)>=1
+                SingleWordParameters(LineWordParameters(4,n,9)-n+1,:)=[];
+            else%排在第一位时
+                SingleWordParameters(1,:)=[];
+            end
         end
 
-%     LineWordParametersCnt=1;
-%     min_center_y = min(SingleWordParameters(:,6))
-%     for m=1:size(SingleWordParameters,1)
-%         if (SingleWordParameters(m,6)-min_center_y)<=5
-%             rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
-%                 SingleWordParameters(m,7),SingleWordParameters(m,8)],'EdgeColor','b');
-%             LineWordParameters(2,LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
-%             LineWordParametersCnt=LineWordParametersCnt+1;
-%         end
-%     end
-%     LineWordParametersCnt=1;
-%     for n=1:size(LineWordParameters,2)
-%         SingleWordParameters(n,:)=[];
-%     end
-    
-    
+        
+        
     temp=testImageHough;
 %end 
