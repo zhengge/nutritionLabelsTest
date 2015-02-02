@@ -136,7 +136,7 @@ LineWordParametersCnt=1;
             if (SingleWordParameters(m,6)-min_center_y)<=15
                 rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
                     SingleWordParameters(m,7),SingleWordParameters(m,8)],'EdgeColor','b');
-                aaa(LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
+                LineWordParameters(LineWordParametersCnt,:)=[SingleWordParameters(m,:),m];
                 LineWordParametersCnt=LineWordParametersCnt+1;
             end
         end
