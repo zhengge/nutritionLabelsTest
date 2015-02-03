@@ -84,9 +84,8 @@
     %对hough矫正后的图片进行连通域的处理
     [B,L,N] = bwboundaries(testImageHough);
     figure; imshow(testImageHough); hold on;
-%     SingleWordParameters(1,:)=[1 2 3 4]
-%     SingleWordParameters(1,:)=[1 2 3 4]
     SingleWordParametersCnt = 1;
+    %得到所有单个字连通域参数SingleWordParameters
     for k=1:length(B),
         boundary = B{k};
         if(k > N)
@@ -98,7 +97,7 @@
             min_x = min(d(:,2));
             wide = max_x-min_x;
             height = max_y-min_y;
-            if wide>=5 || height>=5  %除去较小的连通域
+            if wide>=5 || height>=10  %除去较小的连通域
                 rectangle('Position',[min_x,min_y,wide,height],'EdgeColor','r');
                 center_x = (min_x+max_x)/2;
                 center_y = (min_y+max_y)/2;
@@ -108,12 +107,12 @@
         end
     end
     SingleWordParametersCnt=1;
-    
+    %得到所有同行字连通域参数LineWordParameters
     LineWordParametersNum=1;
     while size(SingleWordParameters,1)>0
-        figure; imshow(testImageHough); hold on;
+%         figure; imshow(testImageHough); hold on;
         LineWordParametersCnt=1;
-        min_center_y = min(SingleWordParameters(:,6))
+        min_center_y = min(SingleWordParameters(:,6));
         for m=1:size(SingleWordParameters,1)
             if (SingleWordParameters(m,6)-min_center_y)<=10
                 rectangle('Position',[SingleWordParameters(m,1),SingleWordParameters(m,2),...
@@ -123,7 +122,6 @@
             end
         end
         %删除已经定位的连通域
-        size(LineWordParameters,2)
         for n=1:(LineWordParametersCnt-1)
             if (LineWordParameters(LineWordParametersNum,n,9)-n+1)>=1
                 SingleWordParameters(LineWordParameters(LineWordParametersNum,n,9)-n+1,:)=[];
@@ -133,8 +131,14 @@
         end
         LineWordParametersNum=LineWordParametersNum+1;
     end
+    %计算一行的参数
+    LineWordParameters(find(LineWordParameters==0))=NaN;%删除LineWordParameters中为0的数据，方便下面寻找最小值
+    for i=1:size(LineWordParameters,1)
+        lineParameters(i,:)=[min(LineWordParameters(i,:,1)),min(LineWordParameters(i,:,2)),...
+            max(LineWordParameters(i,:,3)),max(LineWordParameters(i,:,4))];
+        rectangle('Position',[lineParameters(i,1),lineParameters(i,2),lineParameters(i,3)-lineParameters(i,1),...
+                    lineParameters(i,4)-lineParameters(i,2)],'EdgeColor','r');
+    end
     
-        
-        
     temp=testImageHough;
 %end 
